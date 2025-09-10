@@ -3,16 +3,11 @@ import { ContentItem as ContentItemType } from '../../types';
 import styled from '@emotion/styled';
 
 const ItemContainer = styled.div`
-  background: ${({theme}) => theme.dark.backgroundColor};
-  border-radius: 8px;
   overflow: hidden;
-  box-shadow: ${({theme}) => theme.dark.boxShadow};
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   height: 100%;
   display: flex;
   flex-direction: column;
-
-
 `;
 
 const ImageContainer = styled.div`
@@ -20,6 +15,7 @@ const ImageContainer = styled.div`
   height: 350px;
   overflow: hidden;
   position: relative;
+  border-radius: 5px;
 
     &:hover {
     transform: translateY(-2px);

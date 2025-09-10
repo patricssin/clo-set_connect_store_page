@@ -60,7 +60,7 @@ const sortItems = (items: ContentItem[], sortBy: string): ContentItem[] => {
       
     case 'name':
     default:
-      return sortedItems.sort((a, b) => a.id.localeCompare(b.id));
+      return sortedItems.sort((a, b) => a.creator.localeCompare(b.creator));
   }
 };
 

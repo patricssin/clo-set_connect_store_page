@@ -25,7 +25,7 @@ const FilterLabel = styled.label`
   cursor: pointer;
   font-weight: 500;
   font-size: 14px;
-  padding: 8px;
+  padding: 6px;
   border-radius: 4px;
   transition: background-color 0.2s;
 

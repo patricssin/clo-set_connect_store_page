@@ -13,7 +13,7 @@ const shimmer = keyframes`
 
 const SkeletonContainer = styled.div`
   background: white;
-  border-radius: 8px;
+  border-radius: 5px;
   overflow: hidden;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   height: 100%;
@@ -35,7 +35,7 @@ const SkeletonContent = styled.div`
   display: flex;
   flex-direction: column;
   gap: 12px;
-  background-color: ${({theme}) => theme.dark.backgroundColor};
+  background-color: ${({theme}) => theme.dark.appBgColor};
 `;
 
 const SkeletonLine = styled.div<{ width?: string; height?: string }>`

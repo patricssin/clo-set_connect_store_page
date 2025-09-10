@@ -5,7 +5,7 @@ import { RootState } from '../index';
 import axios from 'axios';
 import { updateMultipleFilters } from './filterSlice';
 
-interface ContentState {
+export interface ContentState {
   items: ContentItem[];
   filteredItems: ContentItem[];
   displayedItems: ContentItem[];
