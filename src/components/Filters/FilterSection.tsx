@@ -6,12 +6,13 @@ import PricingFilter from './PricingFilter';
 // import PriceSlider from './PriceSlider';
 import styled from '@emotion/styled';
 import SearchInput from './SearchInput';
+import { useQueryParams } from '../../hooks/useQueryParams';
 
 const FilterContainer = styled.div`
   margin-bottom: 30px;
   padding: 4px 10px;  
   background-color: #fff;
-  border-radius: 8px;
+  border-radius: 5px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 `;
 
@@ -26,25 +27,27 @@ const FilterRow = styled.div`
 
 const ResetButton = styled.button`
   padding: 5px;
-  background-color:rgb(146, 143, 144);
+  background-color:transparent;
   font-size: 10px;
-  color: white;
   border: none;
-  border-radius: 4px;
+  border-radius: 6px;
   cursor: pointer;
   font-weight: 500;
   transition: background-color 0.2s;
 
   &:hover {
-    background-color:#007bff;
+    background-color:rgb(146, 143, 144);
+    color: white;
   }
 `;
 
 const FilterSection: React.FC = () => {
   const dispatch = useAppDispatch();
+  const { setParam } = useQueryParams();
 
   const handleReset = () => {
     dispatch(resetFilters());
+    setParam('pricingOptions', '');
   };
 
   return (
@@ -56,11 +59,8 @@ const FilterSection: React.FC = () => {
           {/* TODO slider price */}
           <ResetButton onClick={handleReset}>RESET</ResetButton>
         </FilterRow>
-        
-
       </FilterContainer>
     </>
-
   );
 };
 

@@ -1,7 +1,7 @@
 import { useEffect, useRef, useCallback } from 'react';
-import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../store';
 import { loadMoreItems } from '../store/slices/contentSlice';
+import { useAppDispatch } from '../store/hooks';
 
 interface UseInfiniteScrollProps {
   loading: boolean;
@@ -10,7 +10,7 @@ interface UseInfiniteScrollProps {
 }
 
 export const useInfiniteScroll = ({ loading, hasMore, threshold = 1 }: UseInfiniteScrollProps) => {
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useAppDispatch();
   const observer = useRef<IntersectionObserver>();
   
   const lastItemRef = useCallback((node: HTMLDivElement | null) => {

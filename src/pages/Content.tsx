@@ -1,11 +1,10 @@
 import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
 import styled from '@emotion/styled';
 import FilterSection from '../components/Filters/FilterSection';
 import ContentList from '../components/Contents/ContentList';
 import { applyContentFilters, fetchContents } from '../store/slices/contentSlice';
-import { AppDispatch } from '../store';
-import { useAppSelector } from '../store/hooks';
+import { useAppDispatch, useAppSelector } from '../store/hooks';
+import { useQueryParams } from '../hooks/useQueryParams';
 
 const Container = styled.div`
   padding: 20px;
@@ -14,17 +13,15 @@ const Container = styled.div`
 `;
 
 export const Content: React.FC = () => {
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useAppDispatch();
   const filters = useAppSelector((state) => state.filter);
+  const { params } = useQueryParams();
 
   useEffect(() => {
-    dispatch(fetchContents());
-  }, [dispatch]);
+    dispatch(Object.keys(params).length === 0 ? fetchContents({}): fetchContents(params));
+   }, [dispatch]);
   
   useEffect(() => {
-    console.log('====================================');
-    console.log(filters);
-    console.log('====================================');
     dispatch(applyContentFilters(filters));
   }, [dispatch, filters]);
 

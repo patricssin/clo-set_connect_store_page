@@ -31,6 +31,9 @@ const filterSlice = createSlice({
     updatePriceRange: (state, action: PayloadAction<[number, number]>) => {
       state.priceRange = action.payload;
     },
+    updateMultipleFilters: (state, action: PayloadAction<Partial<FilterState>>) => {
+      Object.assign(state, action.payload);
+    },
     resetFilters: (state) => {
       state.pricingOptions = initialState.pricingOptions;
       // state.searchKeyword = initialState.searchKeyword;
@@ -44,6 +47,7 @@ export const {
   updateSearchKeyword,
   updateSortBy,
   updatePriceRange,
+  updateMultipleFilters,
   resetFilters,
 } = filterSlice.actions;
 

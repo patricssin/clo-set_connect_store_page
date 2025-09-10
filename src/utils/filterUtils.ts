@@ -1,5 +1,7 @@
 import { ContentItem, FilterState } from '../types';
 
+export const princinOptMapping = ['Paid', 'Free', 'ViewOnly']
+
 export const applyFilters = (items: ContentItem[], filters: FilterState): ContentItem[] => {
   let filteredItems = [...items];
   
@@ -61,3 +63,24 @@ const sortItems = (items: ContentItem[], sortBy: string): ContentItem[] => {
       return sortedItems.sort((a, b) => a.id.localeCompare(b.id));
   }
 };
+
+export const getFilterFromParams = (params: Record<string, string>) => {
+  const { searchKeyword, pricingOptions } = params;
+  const pricingOptionsState = { Paid: false, Free: false, ViewOnly: false };
+  if (pricingOptions) {
+    const decodedOptions = decodeURIComponent(pricingOptions);
+    decodedOptions && decodedOptions.split('+').forEach((option) => {
+      if (option in princinOptMapping) {
+        const statekey = princinOptMapping[+option] as keyof typeof pricingOptionsState;
+        pricingOptionsState[statekey] = true;
+      }
+    });
+  }
+  // TODO price range and sort by
+  return {
+    searchKeyword: searchKeyword || '',
+    pricingOptions: pricingOptionsState,
+    priceRange: [0, 100] as [number, number],
+    sortBy: 'name',
+  };
+}

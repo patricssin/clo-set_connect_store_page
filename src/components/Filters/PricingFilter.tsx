@@ -2,6 +2,9 @@ import React from 'react';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { updatePricingOption } from '../../store/slices/filterSlice';
 import styled from '@emotion/styled';
+import { FilterState } from '../../types';
+import { useQueryParams } from '../../hooks/useQueryParams';
+import { princinOptMapping } from '../../utils/filterUtils';
 
 const FilterGroupLabel = styled.div`
   margin-left: 10px;
@@ -40,12 +43,13 @@ const CheckboxInput = styled.input`
 const PricingFilter: React.FC = () => {
   const dispatch = useAppDispatch();
   const { pricingOptions } = useAppSelector((state) => state.filter);
+  const { setParam } = useQueryParams();
 
   const handleChange = (option: keyof typeof pricingOptions) => {
-    dispatch(updatePricingOption({ 
-      option, 
-      value: !pricingOptions[option] 
-    }));
+    dispatch(updatePricingOption({ option, value: !pricingOptions[option] }));
+    const _newoption = {...pricingOptions, [option]: !pricingOptions[option]};
+    const updateParams = princinOptMapping.filter(opt => _newoption[opt as keyof FilterState['pricingOptions']]).map(param => princinOptMapping.indexOf(param)).join('+');
+    setParam('pricingOptions', updateParams);
   };
 
   return (

@@ -1,8 +1,9 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { ContentItem, FilterState } from '../../types';
-import { applyFilters } from '../../utils/filterUtils';
+import { applyFilters, getFilterFromParams } from '../../utils/filterUtils';
 import { RootState } from '../index';
 import axios from 'axios';
+import { updateMultipleFilters } from './filterSlice';
 
 interface ContentState {
   items: ContentItem[];
@@ -26,11 +27,16 @@ const initialState: ContentState = {
 
 const ITEMS_PER_PAGE = 12;
 
-export const fetchContents = createAsyncThunk(
+export const fetchContents = createAsyncThunk<ContentItem[], Record<string, string>>(
   'content/fetchContents',
-  async (_, { rejectWithValue }) => {
+  async (args, {dispatch, rejectWithValue }) => {
     try {
       const response = await axios.get('https://closet-recruiting-api.azurewebsites.net/api/data');
+      if (Object.keys(args).length !== 0) {
+        setTimeout(() => {
+          dispatch(updateMultipleFilters(getFilterFromParams(args)));
+        }, 300);
+      }
       return response.data;
     } catch (error) {
       return rejectWithValue(error instanceof Error ? error.message : 'Failed to fetch content');

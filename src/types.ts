@@ -20,6 +20,6 @@ export interface FilterState {
     ViewOnly: boolean;
   };
   searchKeyword: string;
-  sortBy: 'name' | 'price_high' | 'price_low';
+  sortBy: string;
   priceRange: [number, number];
 }

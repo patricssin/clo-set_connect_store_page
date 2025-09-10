@@ -1,8 +1,10 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useRef } from 'react';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { updateSearchKeyword } from '../../store/slices/filterSlice';
 import styled from '@emotion/styled';
 import SearchIcon from './SearchIcon';
+import { useDebouncedCallback } from '../../hooks/useDebouncedCallback';
+import { useQueryParams } from '../../hooks/useQueryParams';
 
 const SearchContainer = styled.div`
   position: relative;
@@ -55,15 +57,22 @@ const SearchButton = styled.button`
 const SearchInput: React.FC = () => {
   const dispatch = useAppDispatch();
   const searchKeyword = useAppSelector((state) => state.filter.searchKeyword);
-  const [inputValue, setInputValue] = useState(searchKeyword);
+  const inputValRef = useRef<HTMLInputElement | null>(null)
+  const { setParam } = useQueryParams();
 
+  const debouncedSearchUpdate = useDebouncedCallback((searchValue: string) => {
+    const _updateK = searchValue.trim()
+    dispatch(updateSearchKeyword(_updateK));
+    setParam('searchKeyword', encodeURIComponent(_updateK));
+  }, 500);
+  
   const handleInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    setInputValue(e.target.value);
+    debouncedSearchUpdate(e.target.value);
   }, []);
 
   const handleSearchClick = useCallback(() => {
-    dispatch(updateSearchKeyword(inputValue.trim()));
-  }, [dispatch, inputValue]);
+    dispatch(updateSearchKeyword(inputValRef.current?.value?.trim()!));
+  }, [dispatch]);
 
   const handleKeyPress = useCallback((e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
@@ -74,9 +83,10 @@ const SearchInput: React.FC = () => {
   return (
     <SearchContainer>
       <SearchInputField
+        ref={inputValRef}
         type="text"
         placeholder="Find the items you're looking for"
-        value={inputValue}
+        defaultValue={searchKeyword}
         onChange={handleInputChange}
         onKeyDown={handleKeyPress}
       />
