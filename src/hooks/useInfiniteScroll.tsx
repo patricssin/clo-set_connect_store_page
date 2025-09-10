@@ -15,8 +15,11 @@ export const useInfiniteScroll = ({ loading, hasMore, threshold = 1 }: UseInfini
   
   const lastItemRef = useCallback((node: HTMLDivElement | null) => {
     if (loading) return;
-    if (observer.current) observer.current.disconnect();
-    
+    if (observer.current) 
+      observer.current.disconnect();
+
+    if (!node) { return; }
+
     observer.current = new IntersectionObserver(entries => {
       if (entries[0].isIntersecting && hasMore) {
         dispatch(loadMoreItems());

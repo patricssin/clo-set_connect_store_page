@@ -15,9 +15,11 @@ const SearchContainer = styled.div`
 const SearchInputField = styled.input`
   width: calc(100% - 30px);
   padding: 10px 10px 10px 15px;
-  border: 2px solid #e1e5e9;
+  border: 0;
   border-radius: 4px;
   font-size: 14px;
+  background-color: #424141;
+  color: #E7E7E8;
   
   &:focus {
     outline: none;
@@ -25,7 +27,7 @@ const SearchInputField = styled.input`
   }
   
   &::placeholder {
-    color: #a0a0a0;
+    color: ${({theme}) => theme.dark.textColor};
   }
 `;
 
@@ -38,16 +40,8 @@ const SearchButton = styled.button`
   border: none;
   cursor: pointer;
   padding: 4px;
-  color: #666;
+  color: #f1ecec;
   transition: color 0.2s ease;
-  
-  &:hover {
-    color: #007bff;
-    
-    svg {
-      fill: #007bff;
-    }
-  }
   
   &:focus {
     outline: none;

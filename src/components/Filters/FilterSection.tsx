@@ -11,9 +11,10 @@ import { useQueryParams } from '../../hooks/useQueryParams';
 const FilterContainer = styled.div`
   margin-bottom: 30px;
   padding: 4px 10px;  
-  background-color: #fff;
+  background-color:  ${({theme}) => theme.dark.backgroundColor};
   border-radius: 5px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  color: ${({theme}) => theme.dark.textColor};
 `;
 
 const FilterRow = styled.div`
@@ -32,8 +33,9 @@ const ResetButton = styled.button`
   border: none;
   border-radius: 6px;
   cursor: pointer;
-  font-weight: 500;
+  font-weight: 700;
   transition: background-color 0.2s;
+  color: ${({theme}) => theme.dark.textColor};
 
   &:hover {
     background-color:rgb(146, 143, 144);

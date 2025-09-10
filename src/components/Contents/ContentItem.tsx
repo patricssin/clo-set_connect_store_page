@@ -3,19 +3,16 @@ import { ContentItem as ContentItemType } from '../../types';
 import styled from '@emotion/styled';
 
 const ItemContainer = styled.div`
-  background: white;
+  background: ${({theme}) => theme.dark.backgroundColor};
   border-radius: 8px;
   overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: ${({theme}) => theme.dark.boxShadow};
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   height: 100%;
   display: flex;
   flex-direction: column;
 
-  &:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
-  }
+
 `;
 
 const ImageContainer = styled.div`
@@ -23,6 +20,11 @@ const ImageContainer = styled.div`
   height: 350px;
   overflow: hidden;
   position: relative;
+
+    &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  }
 `;
 
 const ItemImage = styled.img`
@@ -49,13 +51,14 @@ const UserName = styled.div`
   color: #666;
   margin-bottom: 4px;
   font-weight: 500;
+  color: ${({theme}) => theme.dark.textColor};
 `;
 
 const Title = styled.h5`
   font-size: 16px;
   font-weight: 600;
   margin: 6px 0;
-  color: #333;
+  color: ${({theme}) => theme.dark.titleColor};
   line-height: 1.4;
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -73,6 +76,8 @@ const PricingInfo = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  color: ${({theme}) => theme.dark.titleColor};
+
 `;
 
 const PricingOption = styled.span<{ type: 0|1|2 }>`

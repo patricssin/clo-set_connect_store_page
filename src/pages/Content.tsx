@@ -8,7 +8,6 @@ import { useQueryParams } from '../hooks/useQueryParams';
 
 const Container = styled.div`
   padding: 20px;
-  // max-width: 800px;
   margin: 0 auto;
 `;
 

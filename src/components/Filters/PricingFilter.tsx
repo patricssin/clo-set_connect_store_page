@@ -25,12 +25,13 @@ const FilterLabel = styled.label`
   cursor: pointer;
   font-weight: 500;
   font-size: 14px;
-  padding: 8px 5px;
+  padding: 8px;
   border-radius: 4px;
   transition: background-color 0.2s;
 
   &:hover {
-    background-color: #f0f0f0;
+    background-color: ${({theme}) => theme.dark.hoverBgColor};
+    color: white;
   }
 `;
 
@@ -38,6 +39,35 @@ const CheckboxInput = styled.input`
   width: 16px;
   height: 16px;
   cursor: pointer;
+
+    &[type="checkbox"] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #4a4848;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.2s ease;
+
+    &:checked {
+      background-color: #2196F3;
+      border-color: #2196F3;
+         &::after {
+        content: "✓";
+        position: absolute;
+        color: white;
+        font-size: 14px;
+        font-weight: bold;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+    }
+  }
 `;
 
 const PricingFilter: React.FC = () => {
