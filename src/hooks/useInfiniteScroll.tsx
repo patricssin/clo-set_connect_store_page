@@ -1,6 +1,6 @@
 import { useEffect, useRef, useCallback } from 'react';
 import { AppDispatch } from '../store';
-import { loadMoreItems } from '../store/slices/contentSlice';
+import { loadMoreItems, mockLoadingForDelay } from '../store/slices/contentSlice';
 import { useAppDispatch } from '../store/hooks';
 
 interface UseInfiniteScrollProps {
@@ -22,6 +22,10 @@ export const useInfiniteScroll = ({ loading, hasMore, threshold = 1 }: UseInfini
     observer.current = new IntersectionObserver(entries => {
       if (entries[0].isIntersecting && hasMore) {
         dispatch(loadMoreItems());
+        // Simulate loading delay for skeleton UI
+        setTimeout(() => {
+          dispatch(mockLoadingForDelay(false))
+        }, 1000);
       }
     }, { threshold });
     

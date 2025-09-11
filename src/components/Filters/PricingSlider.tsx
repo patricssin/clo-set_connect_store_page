@@ -30,7 +30,7 @@ const PriceValue = styled.span`
 const SliderWrapper = styled.div`
   position: relative;
   height: 30px;
-  margin: 20px 10px;
+  margin: 0px 10px;
   width: 70%;
 `;
 

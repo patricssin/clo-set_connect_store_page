@@ -55,6 +55,7 @@ const contentSlice = createSlice({
       state.hasMore = state.filteredItems.length > ITEMS_PER_PAGE;
     },
     loadMoreItems: (state) => {
+      state.loading = true;
       const nextPage = state.page + 1;
       const startIndex = (nextPage - 1) * ITEMS_PER_PAGE;
       const endIndex = startIndex + ITEMS_PER_PAGE;
@@ -70,6 +71,9 @@ const contentSlice = createSlice({
       ];
       state.page = nextPage;
       state.hasMore = endIndex < state.filteredItems.length;
+    },
+    mockLoadingForDelay: (state, action: PayloadAction<boolean>) => {
+      state.loading = action.payload;
     },
     clearError: (state) => {
       state.error = null;
@@ -95,5 +99,5 @@ const contentSlice = createSlice({
   },
 });
 
-export const { applyContentFilters, loadMoreItems, clearError } = contentSlice.actions;
+export const { applyContentFilters, loadMoreItems, clearError, mockLoadingForDelay } = contentSlice.actions;
 export default contentSlice.reducer;
