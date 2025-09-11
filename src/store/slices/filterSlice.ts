@@ -36,8 +36,7 @@ const filterSlice = createSlice({
     },
     resetFilters: (state) => {
       state.pricingOptions = initialFilterState.pricingOptions;
-      // state.searchKeyword = initialState.searchKeyword;
-      // state.priceRange = initialState.priceRange;
+      state.priceRange = initialFilterState.priceRange;
     },
   },
 });

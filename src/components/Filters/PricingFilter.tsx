@@ -5,6 +5,7 @@ import styled from '@emotion/styled';
 import { FilterState } from '../../types';
 import { useQueryParams } from '../../hooks/useQueryParams';
 import { princinOptMapping } from '../../utils/filterUtils';
+import PricingSlider from './PricingSlider';
 
 const FilterGroupLabel = styled.div`
   margin-left: 10px;
@@ -16,6 +17,7 @@ const FilterGroup = styled.div`
   align-items: center;
   gap: 5px;
   flex-wrap: wrap;
+  width: 80%;
 `;
 
 const FilterLabel = styled.label`
@@ -25,7 +27,7 @@ const FilterLabel = styled.label`
   cursor: pointer;
   font-weight: 500;
   font-size: 14px;
-  padding: 6px;
+  padding: 4px;
   border-radius: 4px;
   transition: background-color 0.2s;
 
@@ -112,6 +114,8 @@ const PricingFilter: React.FC = () => {
         />
         View Only
       </FilterLabel>
+
+      <PricingSlider />
     </FilterGroup>
   );
 };

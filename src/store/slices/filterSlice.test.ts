@@ -242,7 +242,7 @@ describe('filterSlice', () => {
       expect(resetState.pricingOptions).toEqual(initialState.pricingOptions);
       expect(resetState.searchKeyword).toBe('test'); 
       expect(resetState.sortBy).toBe('price_high'); 
-      expect(resetState.priceRange).toEqual([100, 200]); 
+      expect(resetState.priceRange).toEqual([0, 999]); 
     });
 
     it('should reset from various states', () => {

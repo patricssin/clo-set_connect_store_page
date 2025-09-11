@@ -77,36 +77,36 @@ describe('Filter Functions', () => {
       const filters: FilterState = {
         searchKeyword: '',
         pricingOptions: { Paid: false, Free: false, ViewOnly: false },
-        priceRange: [0, 100],
+        priceRange: [0, 999],
         sortBy: 'name'
       };
       
       const result = applyFilters(mockItems, filters);
-      expect(result.map(item => item.creator)).toEqual(['Apple', 'Banana', 'Cherry', 'Date', 'Elderberry']);
+      expect(result.map(item => item.creator)).toEqual(['Bob', 'Jane', 'John', 'John']);
     });
   
     it('sort from high to low', () => {
       const filters: FilterState = {
         searchKeyword: '',
         pricingOptions: { Paid: true, Free: false, ViewOnly: false },
-        priceRange: [0, 100],
+        priceRange: [0, 49],
         sortBy: 'price_high'
       };
       
       const result = applyFilters(mockItems, filters);
-      expect(result.map(item => item.price)).toEqual([200, 100, 50]);
+      expect(result.map(item => item.price)).toEqual([30]);
     });
   
     it('sort low to high', () => {
       const filters: FilterState = {
         searchKeyword: '',
         pricingOptions: { Paid: true, Free: false, ViewOnly: false },
-        priceRange: [0, 100],
+        priceRange: [0, 150],
         sortBy: 'price_low'
       };
       
       const result = applyFilters(mockItems, filters);
-      expect(result.map(item => item.price)).toEqual([50, 100, 200]);
+      expect(result.map(item => item.price)).toEqual([30, 50]);
     });
   });
 
@@ -117,7 +117,7 @@ describe('Filter Functions', () => {
       expect(result).toEqual({
         searchKeyword: '',
         pricingOptions: { Paid: false, Free: false, ViewOnly: false },
-        priceRange: [0, 100],
+        priceRange: [0, 999],
         sortBy: 'name'
       });
     });

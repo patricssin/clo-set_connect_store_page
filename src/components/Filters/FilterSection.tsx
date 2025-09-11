@@ -2,7 +2,6 @@ import React from 'react';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { resetFilters } from '../../store/slices/filterSlice';
 import PricingFilter from './PricingFilter';
-// import PriceSlider from './PriceSlider';
 import styled from '@emotion/styled';
 import SearchInput from './SearchInput';
 import { useQueryParams } from '../../hooks/useQueryParams';
@@ -44,11 +43,11 @@ const ResetButton = styled.button`
 
 const FilterSection: React.FC = () => {
   const dispatch = useAppDispatch();
-  const { setParam } = useQueryParams();
+  const { setMultipleParams } = useQueryParams();
 
   const handleReset = () => {
     dispatch(resetFilters());
-    setParam('pricingOptions', '');
+    setMultipleParams({'pricingOptions': '', 'priceRange': ''});
   };
 
   return (
@@ -57,7 +56,6 @@ const FilterSection: React.FC = () => {
       <FilterContainer>
         <FilterRow>
           <PricingFilter />
-          {/* TODO slider price */}
           <ResetButton onClick={handleReset}>RESET</ResetButton>
         </FilterRow>
       </FilterContainer>

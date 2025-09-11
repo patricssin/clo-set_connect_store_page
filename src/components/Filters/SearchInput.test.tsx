@@ -48,8 +48,8 @@ describe('SearchInput', () => {
     
     mockUseQueryParams.mockReturnValue({
       params: {},
-      setParam: mockSetParam,
-      setMultipleParams: jest.fn(),
+      setParam: jest.fn(),
+      setMultipleParams: mockSetParam,
       clearParams: jest.fn(),
       hasParams: false,
     });
@@ -110,7 +110,7 @@ describe('SearchInput', () => {
     mockDebouncedCallback('test search');
 
     expect(mockUpdateSearchKeyword).toHaveBeenCalledWith('test search');
-    expect(mockSetParam).toHaveBeenCalledWith('searchKeyword', 'test%20search');
+    expect(mockSetParam).toHaveBeenCalledWith({'searchKeyword': 'test%20search'});
   });
 
   it('should handle empty search value', () => {
@@ -119,7 +119,7 @@ describe('SearchInput', () => {
     mockDebouncedCallback('   ');
 
     expect(mockUpdateSearchKeyword).toHaveBeenCalledWith('');
-    expect(mockSetParam).toHaveBeenCalledWith('searchKeyword', '');
+    expect(mockSetParam).toHaveBeenCalledWith({'searchKeyword': ''});
   });
 
   it('should handle search button click', () => {
@@ -170,7 +170,7 @@ describe('SearchInput', () => {
     mockDebouncedCallback('  trimmed  ');
 
     expect(mockUpdateSearchKeyword).toHaveBeenCalledWith('trimmed');
-    expect(mockSetParam).toHaveBeenCalledWith('searchKeyword', 'trimmed');
+    expect(mockSetParam).toHaveBeenCalledWith({'searchKeyword': 'trimmed'});
   });
 
   it('should handle special characters in search', () => {
@@ -182,7 +182,7 @@ describe('SearchInput', () => {
     mockDebouncedCallback('test@domain.com #special');
 
     expect(mockUpdateSearchKeyword).toHaveBeenCalledWith('test@domain.com #special');
-    expect(mockSetParam).toHaveBeenCalledWith('searchKeyword', 'test%40domain.com%20%23special');
+    expect(mockSetParam).toHaveBeenCalledWith({'searchKeyword': 'test%40domain.com%20%23special'});
   });
 
   it('should have proper accessibility attributes', () => {

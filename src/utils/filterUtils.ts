@@ -18,14 +18,13 @@ export const applyFilters = (items: ContentItem[], filters: FilterState): Conten
     });
   }
   
-  // TODO price range filter (only applies if Paid is selected)
-  // if (Paid) {
-  //   const [minPrice, maxPrice] = filters.priceRange;
-  //   filteredItems = filteredItems.filter(item => {
-  //     if (item.pricingOption !== 0) return true;
-  //     return item.price !== undefined && item.price >= minPrice && item.price <= maxPrice;
-  //   });
-  // }
+  if (Paid) {
+    const [minPrice, maxPrice] = filters.priceRange;
+    filteredItems = filteredItems.filter(item => {
+      if (item.pricingOption !== 0) return true;
+      return item.price !== undefined && item.price >= minPrice && item.price <= maxPrice;
+    });
+  }
   
   // search keyword filter
   if (filters.searchKeyword) {
@@ -69,7 +68,7 @@ const sortItems = (items: ContentItem[], sortBy: string): ContentItem[] => {
 };
 
 export const getFilterFromParams = (params: Record<string, string>) => {
-  const { searchKeyword, pricingOptions, sortBy } = params;
+  const { searchKeyword, pricingOptions, sortBy, priceRange } = params;
   const pricingOptionsState = { Paid: false, Free: false, ViewOnly: false };
   if (pricingOptions) {
     const decodedOptions = decodeURIComponent(pricingOptions);
@@ -81,6 +80,17 @@ export const getFilterFromParams = (params: Record<string, string>) => {
     });
   }
   // TODO price range
+  const priceRangeState = [0, 999] as [number, number];
+  if (priceRange) {
+    const decodedRange = decodeURIComponent(priceRange);
+    const [minStr, maxStr] = decodedRange.split('+');
+    const min = parseInt(minStr, 10);
+    const max = parseInt(maxStr, 10);
+    if (!isNaN(min) && !isNaN(max) && min >= 0 && max <= 999 && min <= max) {
+      [priceRangeState[0], priceRangeState[1]] = [min, max];
+    }
+  }
+
   let sortByState = 'name';
   if (sortBy) {
     const decodeSortBy = decodeURIComponent(sortBy);
@@ -91,7 +101,7 @@ export const getFilterFromParams = (params: Record<string, string>) => {
   return {
     searchKeyword: searchKeyword || '',
     pricingOptions: pricingOptionsState,
-    priceRange: [0, 100] as [number, number],
+    priceRange: priceRangeState,
     sortBy: sortByState,
   };
 }
