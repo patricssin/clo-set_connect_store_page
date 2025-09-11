@@ -52,7 +52,7 @@ const SearchInput: React.FC = () => {
   const dispatch = useAppDispatch();
   const searchKeyword = useAppSelector((state) => state.filter.searchKeyword);
   const inputValRef = useRef<HTMLInputElement | null>(null)
-  const { setParam, setMultipleParams } = useQueryParams();
+  const { params, setParam, setMultipleParams } = useQueryParams();
 
   const debouncedSearchUpdate = useDebouncedCallback((searchValue: string) => {
     const _updateK = searchValue.trim()
@@ -63,7 +63,7 @@ const SearchInput: React.FC = () => {
   
   const handleInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     debouncedSearchUpdate(e.target.value);
-  }, []);
+  }, [params]);
 
   const handleSearchClick = useCallback(() => {
     dispatch(updateSearchKeyword(inputValRef.current?.value?.trim()!));
