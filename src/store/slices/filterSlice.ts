@@ -3,7 +3,7 @@ import { FilterState } from '../../types';
 
 
 
-const initialState: FilterState = {
+export const initialFilterState: FilterState = {
   pricingOptions: {
     Paid: false,
     Free: false,
@@ -16,7 +16,7 @@ const initialState: FilterState = {
 
 const filterSlice = createSlice({
   name: 'filter',
-  initialState,
+  initialState: initialFilterState,
   reducers: {
     updatePricingOption: (state, action: PayloadAction<{ option: keyof FilterState['pricingOptions']; value: boolean }>) => {
       const { option, value } = action.payload;
@@ -35,7 +35,7 @@ const filterSlice = createSlice({
       Object.assign(state, action.payload);
     },
     resetFilters: (state) => {
-      state.pricingOptions = initialState.pricingOptions;
+      state.pricingOptions = initialFilterState.pricingOptions;
       // state.searchKeyword = initialState.searchKeyword;
       // state.priceRange = initialState.priceRange;
     },

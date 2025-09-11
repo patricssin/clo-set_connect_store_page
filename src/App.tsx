@@ -6,7 +6,7 @@ import styled from '@emotion/styled';
 import  store from './store';
 import { Content } from './pages/Content';
 import { Theme, ThemeProvider } from '@emotion/react';
-const theme: Theme = {
+export const theme: Theme = {
   dark: {
     appBgColor: '#313335',
     backgroundColor: '#1F2022',

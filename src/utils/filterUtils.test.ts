@@ -103,6 +103,33 @@ describe('Filter Functions', () => {
       expect(result.pricingOptions.Free).toBe(true);
       expect(result.pricingOptions.ViewOnly).toBe(false);
     });
+
+    describe('sortBy parsing', () => {
+      it('should parse valid sortBy value "name"', () => {
+        const result = getFilterFromParams({ sortBy: 'name' });
+        expect(result.sortBy).toBe('name');
+      });
+  
+      it('should parse valid sortBy value "price_high"', () => {
+        const result = getFilterFromParams({ sortBy: 'price_high' });
+        expect(result.sortBy).toBe('price_high');
+      });
+  
+      it('should parse valid sortBy value "price_low"', () => {
+        const result = getFilterFromParams({ sortBy: 'price_low' });
+        expect(result.sortBy).toBe('price_low');
+      });
+  
+      it('should handle URL encoded sortBy value', () => {
+        const result = getFilterFromParams({ sortBy: encodeURIComponent('price_high') });
+        expect(result.sortBy).toBe('price_high');
+      });
+  
+      it('should ignore invalid sortBy value', () => {
+        const result = getFilterFromParams({ sortBy: 'invalid' });
+        expect(result.sortBy).toBe('name');
+      });
+    });
   });
 
   describe('princinOptMapping', () => {

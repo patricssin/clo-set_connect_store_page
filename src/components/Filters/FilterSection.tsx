@@ -2,7 +2,6 @@ import React from 'react';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { resetFilters } from '../../store/slices/filterSlice';
 import PricingFilter from './PricingFilter';
-// import SortDropdown from './SortDropdown';
 // import PriceSlider from './PriceSlider';
 import styled from '@emotion/styled';
 import SearchInput from './SearchInput';

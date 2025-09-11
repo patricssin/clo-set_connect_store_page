@@ -80,6 +80,9 @@ const PricingOption = styled.span<{ type: 0|1|2 }>`
   font-size: 24px;
   font-weight: 600;
   border-radius: 4px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 `;
 
 interface ContentItemProps {

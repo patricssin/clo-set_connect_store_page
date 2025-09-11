@@ -42,19 +42,23 @@ export const applyFilters = (items: ContentItem[], filters: FilterState): Conten
 
 const sortItems = (items: ContentItem[], sortBy: string): ContentItem[] => {
   const sortedItems = [...items];
-  
+  function mapPrice(priceOption: number, price:number) {
+    if (priceOption === 1) return 0;
+    if (priceOption === 2) return -1; 
+    return Number(price);
+  }
   switch (sortBy) {
     case 'price_high':
       return sortedItems.sort((a, b) => {
-        const priceA = a.price || 0;
-        const priceB = b.price || 0;
+        const priceA = mapPrice(a.pricingOption, a.price || 0);
+        const priceB = mapPrice(b.pricingOption, b.price || 0);
         return priceB - priceA;
       });
       
     case 'price_low':
       return sortedItems.sort((a, b) => {
-        const priceA = a.price || 0;
-        const priceB = b.price || 0;
+        const priceA = mapPrice(a.pricingOption, a.price || 0);
+        const priceB = mapPrice(b.pricingOption, b.price || 0);
         return priceA - priceB;
       });
       
@@ -65,7 +69,7 @@ const sortItems = (items: ContentItem[], sortBy: string): ContentItem[] => {
 };
 
 export const getFilterFromParams = (params: Record<string, string>) => {
-  const { searchKeyword, pricingOptions } = params;
+  const { searchKeyword, pricingOptions, sortBy } = params;
   const pricingOptionsState = { Paid: false, Free: false, ViewOnly: false };
   if (pricingOptions) {
     const decodedOptions = decodeURIComponent(pricingOptions);
@@ -76,11 +80,18 @@ export const getFilterFromParams = (params: Record<string, string>) => {
       }
     });
   }
-  // TODO price range and sort by
+  // TODO price range
+  let sortByState = 'name';
+  if (sortBy) {
+    const decodeSortBy = decodeURIComponent(sortBy);
+    if (['name', 'price_high', 'price_low'].includes(decodeSortBy)) {
+      sortByState = decodeSortBy;
+    }
+  }
   return {
     searchKeyword: searchKeyword || '',
     pricingOptions: pricingOptionsState,
     priceRange: [0, 100] as [number, number],
-    sortBy: 'name',
+    sortBy: sortByState,
   };
 }

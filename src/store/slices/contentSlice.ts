@@ -3,7 +3,7 @@ import { ContentItem, FilterState } from '../../types';
 import { applyFilters, getFilterFromParams } from '../../utils/filterUtils';
 import { RootState } from '../index';
 import axios from 'axios';
-import { updateMultipleFilters } from './filterSlice';
+import { initialFilterState, updateMultipleFilters } from './filterSlice';
 
 export interface ContentState {
   items: ContentItem[];
@@ -35,7 +35,7 @@ export const fetchContents = createAsyncThunk<ContentItem[], Record<string, stri
       if (Object.keys(args).length !== 0) {
         setTimeout(() => {
           dispatch(updateMultipleFilters(getFilterFromParams(args)));
-        }, 300);
+        }, 100);
       }
       return response.data;
     } catch (error) {
@@ -84,8 +84,8 @@ const contentSlice = createSlice({
       .addCase(fetchContents.fulfilled, (state, action) => {
         state.loading = false;
         state.items = action.payload;
-        state.filteredItems = action.payload;
-        state.displayedItems = action.payload.slice(0, ITEMS_PER_PAGE);
+        state.filteredItems = applyFilters(action.payload, initialFilterState);
+        state.displayedItems =  state.filteredItems.slice(0, ITEMS_PER_PAGE);
         state.hasMore = action.payload.length > ITEMS_PER_PAGE;
       })
       .addCase(fetchContents.rejected, (state, action) => {

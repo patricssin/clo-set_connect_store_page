@@ -5,6 +5,7 @@ import ContentList from '../components/Contents/ContentList';
 import { applyContentFilters, fetchContents } from '../store/slices/contentSlice';
 import { useAppDispatch, useAppSelector } from '../store/hooks';
 import { useQueryParams } from '../hooks/useQueryParams';
+import CustomSelect from '../components/Filters/CustomSelect';
 
 const Container = styled.div`
   padding: 20px;
@@ -27,7 +28,7 @@ export const Content: React.FC = () => {
   return (
     <Container>
       <FilterSection />
-      {/* TODO sort by */}
+      <CustomSelect />
       <ContentList />
     </Container>
   );
