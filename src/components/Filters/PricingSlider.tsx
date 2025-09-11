@@ -57,12 +57,12 @@ const SliderRange = styled.div<{ left: number; right: number }>`
   z-index: 2;
 `;
 
-const ThumbContainer = styled.div<{ position: number }>`
+const ThumbContainer = styled.div<{ position: number, zIndex: number }>`
   position: absolute;
   top: 50%;
   left: ${props => props.position}%;
   transform: translate(-50%, -50%);
-  z-index: 3;
+  z-index: ${props => props.zIndex || 3};
   cursor: pointer;
   touch-action: none;
 `;
@@ -204,6 +204,7 @@ const PriceSlider: React.FC = () => {
           position={minPosition}
           onMouseDown={(e) => handleStartDrag('min', e.clientX)}
           onTouchStart={(e) => handleStartDrag('min', e.touches[0].clientX)}
+          zIndex={(dragState.thumbType === 'min' && Math.abs(maxValue - minValue)<5) ? 4 : 3}
         >
           <Thumb data-testid='min-thumb' isDragging={dragState.isDragging && dragState.thumbType === 'min'} />
         </ThumbContainer>
@@ -212,6 +213,7 @@ const PriceSlider: React.FC = () => {
           position={maxPosition}
           onMouseDown={(e) => handleStartDrag('max', e.clientX)}
           onTouchStart={(e) => handleStartDrag('max', e.touches[0].clientX)}
+          zIndex={(dragState.thumbType === 'max' && Math.abs(maxValue - minValue)<5) ? 4 : 3}
         >
           <Thumb data-testid='max-thumb' isDragging={dragState.isDragging && dragState.thumbType === 'max'} />
         </ThumbContainer>
