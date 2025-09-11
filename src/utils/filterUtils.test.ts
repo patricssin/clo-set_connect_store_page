@@ -72,6 +72,42 @@ describe('Filter Functions', () => {
       const result = applyFilters(mockItems, filters);
       expect(result.length).toBe(2);
     });
+
+    it('sort by name', () => {
+      const filters: FilterState = {
+        searchKeyword: '',
+        pricingOptions: { Paid: false, Free: false, ViewOnly: false },
+        priceRange: [0, 100],
+        sortBy: 'name'
+      };
+      
+      const result = applyFilters(mockItems, filters);
+      expect(result.map(item => item.creator)).toEqual(['Apple', 'Banana', 'Cherry', 'Date', 'Elderberry']);
+    });
+  
+    it('sort from high to low', () => {
+      const filters: FilterState = {
+        searchKeyword: '',
+        pricingOptions: { Paid: true, Free: false, ViewOnly: false },
+        priceRange: [0, 100],
+        sortBy: 'price_high'
+      };
+      
+      const result = applyFilters(mockItems, filters);
+      expect(result.map(item => item.price)).toEqual([200, 100, 50]);
+    });
+  
+    it('sort low to high', () => {
+      const filters: FilterState = {
+        searchKeyword: '',
+        pricingOptions: { Paid: true, Free: false, ViewOnly: false },
+        priceRange: [0, 100],
+        sortBy: 'price_low'
+      };
+      
+      const result = applyFilters(mockItems, filters);
+      expect(result.map(item => item.price)).toEqual([50, 100, 200]);
+    });
   });
 
   describe('getFilterFromParams', () => {

@@ -92,7 +92,7 @@ interface ContentItemProps {
 
 const ContentItem = React.forwardRef<HTMLDivElement, ContentItemProps>(
   ({ item }, ref) => {
-  const priceText = item.pricingOption === 0 ? `$${item.price.toFixed(2)}` : item.pricingOption === 1 ? 'FREE' : 'View Only';
+  const priceText = item.pricingOption === 0 ? `$${item.price?.toFixed(2)}` : item.pricingOption === 1 ? 'FREE' : 'View Only';
 
   return (
     <ItemContainer ref={ref}>

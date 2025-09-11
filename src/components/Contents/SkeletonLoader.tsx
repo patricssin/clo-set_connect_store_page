@@ -56,13 +56,13 @@ const SkeletonPricing = styled.div`
 
 const SkeletonLoader: React.FC = () => {
   return (
-    <SkeletonContainer>
-      <SkeletonImage />
-      <SkeletonContent>
-        <SkeletonLine width="60%" height="14px" />
-        <SkeletonPricing>
-          <SkeletonLine width="80px" height="20px" />
-          <SkeletonLine width="60px" height="20px" />
+    <SkeletonContainer data-testid="skeleton-container">
+      <SkeletonImage data-testid="skeleton-image" />
+      <SkeletonContent data-testid="skeleton-content">
+        <SkeletonLine width="60%" height="14px" data-testid="skeleton-line" />
+        <SkeletonPricing  data-testid="skeleton-pricing">
+          <SkeletonLine width="80px" height="20px" data-testid="skeleton-line" />
+          <SkeletonLine width="60px" height="20px" data-testid="skeleton-line" />
         </SkeletonPricing>
       </SkeletonContent>
     </SkeletonContainer>
