@@ -79,7 +79,7 @@ export const getFilterFromParams = (params: Record<string, string>) => {
       }
     });
   }
-  // TODO price range
+  
   const priceRangeState = [0, 999] as [number, number];
   if (priceRange) {
     const decodedRange = decodeURIComponent(priceRange);

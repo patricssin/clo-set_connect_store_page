@@ -89,12 +89,12 @@ describe('Filter Functions', () => {
       const filters: FilterState = {
         searchKeyword: '',
         pricingOptions: { Paid: true, Free: false, ViewOnly: false },
-        priceRange: [0, 49],
+        priceRange: [0, 489],
         sortBy: 'price_high'
       };
       
       const result = applyFilters(mockItems, filters);
-      expect(result.map(item => item.price)).toEqual([30]);
+      expect(result.map(item => item.price)).toEqual([50,30]);
     });
   
     it('sort low to high', () => {
@@ -165,6 +165,11 @@ describe('Filter Functions', () => {
         const result = getFilterFromParams({ sortBy: 'invalid' });
         expect(result.sortBy).toBe('name');
       });
+    });
+
+    it('parses valid price range', () => {
+      const result = getFilterFromParams({ priceRange: '10+100' });
+      expect(result.priceRange).toEqual([10, 100]);
     });
   });
 

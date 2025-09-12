@@ -109,7 +109,7 @@ const ContentList: React.FC = () => {
 
       {!hasMore && displayedItems.length > 0 && (
         <LoaderContainer>
-          <LoadingText>No more items to load</LoadingText>
+          <LoadingText data-testid='nomore-items'>No more items to load</LoadingText>
         </LoaderContainer>
       )}
 
