@@ -6,6 +6,7 @@ import { applyContentFilters, fetchContents } from '../store/slices/contentSlice
 import { useAppDispatch, useAppSelector } from '../store/hooks';
 import { useQueryParams } from '../hooks/useQueryParams';
 import CustomSelect from '../components/Filters/CustomSelect';
+import ContentListVirtual from '../components/Contents/ContentListVirtual';
 
 const Container = styled.div`
   padding: 20px;
@@ -29,7 +30,8 @@ export const Content: React.FC = () => {
     <Container>
       <FilterSection />
       <CustomSelect />
-      <ContentList />
+      {/* <ContentList /> */}
+      <ContentListVirtual />
     </Container>
   );
 };

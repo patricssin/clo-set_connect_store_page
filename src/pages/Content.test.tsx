@@ -5,7 +5,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import { Content } from './Content';
 
 jest.mock('../components/Filters/FilterSection', () => 'filter-section');
-jest.mock('../components/Contents/ContentList', () => 'content-list');
+jest.mock('../components/Contents/ContentListVirtual', () => 'content-list');
 jest.mock('../components/Filters/CustomSelect', () => 'custom-select');
 
 jest.mock('../store/hooks', () => ({
